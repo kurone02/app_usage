@@ -1,6 +1,3 @@
-import 'package:exampleproject/isar_service.dart';
-import 'package:exampleproject/model/app_usage.dart';
-
 import 'app_usage_platform_interface.dart';
 
 enum AppCategory {
@@ -40,8 +37,6 @@ class AppUsageInfo {
 
 /// A dart object contains all app events such as opening, closing, etc. in a specific time range
 class AppUsage {
-  final isar = IsarService().db;
-
   /// Just for testing, don't need to worry about this method...
   Future<String?> getPlatformVersion() {
     return AppUsagePlatform.instance.getPlatformVersion();
@@ -66,14 +61,6 @@ class AppUsage {
 
     for (var event in res) {
       event = Map.of(event);
-      // isar.writeTxn(() async {
-      //   isar.appUsageLogs.put(AppUsageLog(
-      //     event["className"],
-      //     int.parse(event["eventType"]!),
-      //     event["packageName"],
-      //     DateTime.fromMillisecondsSinceEpoch(int.parse(event["timeStamp"]!)),
-      //   ));
-      // });
       result.add(AppUsageInfo(
         className: event["className"],
         eventType: int.parse(event["eventType"]!),
