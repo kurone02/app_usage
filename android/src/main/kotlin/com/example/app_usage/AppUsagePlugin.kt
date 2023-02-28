@@ -14,13 +14,10 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
 import android.util.Log
-import android.content.Context
 import android.app.usage.UsageStatsManager
 import android.app.usage.UsageEvents
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ApplicationInfo
-import android.provider.Settings
 
 /** AppUsagePlugin */
 public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -58,12 +55,12 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     fun getAppUsage(@NonNull startTime: Long, @NonNull endTime: Long, packageName: String? = null) : MutableList< Map<String, String> > {
       
         /// Query the Usage API
-        var usageStatsManager : UsageStatsManager = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+        var usageStatsManager : UsageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         var usage : UsageEvents = usageStatsManager.queryEvents(startTime, endTime)
 
         if(!usage.hasNextEvent()) {
             val intent : Intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
-            startActivity(intent)
+            context.startActivity(intent)
         }
 
         var events: MutableList< Map<String, String> > = mutableListOf()
@@ -71,7 +68,7 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             var event : UsageEvents.Event = UsageEvents.Event()
             usage.getNextEvent(event);
             if(packageName == null || packageName == event.getPackageName()) {
-            val pm : PackageManager = getPackageManager()
+            val pm : PackageManager = context.getPackageManager()
             val name : String = if(event.getPackageName() == null) "" else event.getPackageName()!!
             val applicationInfo : ApplicationInfo = pm.getApplicationInfo(name, 0)
             events.add(mapOf(
@@ -89,7 +86,7 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     }
     
     fun checkIfStatsAreAvailable(@NonNull startTime: Long, @NonNull endTime: Long) : Boolean {
-        var usageStatsManager : UsageStatsManager = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+        var usageStatsManager : UsageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         var usage : UsageEvents = usageStatsManager.queryEvents(startTime, endTime)
     
         // Return whether or not stats are available
@@ -99,14 +96,6 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
-    }
-
-    fun handlePermissions() {
-        /// If stats are not available, show the permission screen to give access to them
-        if (!Stats.checkIfStatsAreAvailable(context)) {
-            val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
-            this.activity.startActivity(intent)
-        }
     }
 
     override fun onDetachedFromActivity() {
