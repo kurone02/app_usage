@@ -1,4 +1,4 @@
-group 'com.pravera.flutter_activity_recognition'
+group 'dk.cachet.app_usage'
 version '1.0-SNAPSHOT'
 
 buildscript {
