@@ -13,6 +13,15 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
+import android.util.Log
+import android.content.Context
+import android.app.usage.UsageStatsManager
+import android.app.usage.UsageEvents
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ApplicationInfo
+import android.provider.Settings
+
 /** AppUsagePlugin */
 public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     /// The MethodChannel that will the communication between Flutter and native Android
