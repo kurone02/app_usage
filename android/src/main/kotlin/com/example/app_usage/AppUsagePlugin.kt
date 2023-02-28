@@ -1,4 +1,4 @@
-package dk.cachet.app_usage
+package com.example.app_usage
 
 import android.app.Activity
 import android.content.Context
