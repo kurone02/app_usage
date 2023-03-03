@@ -60,7 +60,7 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
         if(!usage.hasNextEvent()) {
             val intent : Intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
-            context.startActivity(intent)
+            activity.startActivity(intent)
         }
 
         var events: MutableList< Map<String, String> > = mutableListOf()
