@@ -57,13 +57,17 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         /// Query the Usage API
         var usageStatsManager : UsageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         var usage : UsageEvents = usageStatsManager.queryEvents(startTime, endTime)
+        var events: MutableList< Map<String, String> > = mutableListOf()
+
+        if (!this::activity.isInitialized) {
+            return events
+        }
 
         if(!usage.hasNextEvent()) {
             val intent : Intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
             activity.startActivity(intent)
         }
 
-        var events: MutableList< Map<String, String> > = mutableListOf()
         while(usage.hasNextEvent()) {
             var event : UsageEvents.Event = UsageEvents.Event()
             usage.getNextEvent(event);
