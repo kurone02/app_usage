@@ -59,7 +59,6 @@ class AppUsage {
       packageName,
     );
     print("instance: ${AppUsagePlatform.instance.toString()}");
-    print("instance: ${AppUsagePlatform.instance.isNull}");
     print("res: $res");
 
     final List<AppUsageInfo> result = [];
