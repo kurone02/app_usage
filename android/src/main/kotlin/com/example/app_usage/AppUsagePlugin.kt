@@ -39,7 +39,7 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         /// Verify that the correct method was called
         if (call.method == "getAppUsage") {
-            print("getAppUsage Called!");
+            Log.d("getAppUsage Called!");
             // Parse parameters, i.e. start- and end-date
             val startTime: Long? = call.argument("start")
             val endTime: Long? = call.argument("end")
@@ -60,8 +60,8 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         var usage : UsageEvents = usageStatsManager.queryEvents(startTime, endTime)
         var events: MutableList< Map<String, String> > = mutableListOf()
 
-        print("usage in kt");
-        print(usage);
+        Log.d("usage in kt");
+        Log.d(usage);
 
         if (!this::activity.isInitialized) {
             return events
