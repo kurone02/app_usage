@@ -61,7 +61,7 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         var events: MutableList< Map<String, String> > = mutableListOf()
 
         Log.d("kttest","usage in kt")
-        Log.d("kttest", usage)
+        Log.d("kttest", usage.toString())
 
         if (!this::activity.isInitialized) {
             return events
