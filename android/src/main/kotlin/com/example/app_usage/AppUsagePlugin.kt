@@ -53,15 +53,11 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     fun getAppUsage(@NonNull startTime: Long, @NonNull endTime: Long, packageName: String? = null) : MutableList< Map<String, String> > {
-
-        print("hello from AppUsagePlugin!");
       
         /// Query the Usage API
         var usageStatsManager : UsageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
         var usage : UsageEvents = usageStatsManager.queryEvents(startTime, endTime)
         var events: MutableList< Map<String, String> > = mutableListOf()
-
-        print("usage: " + usage);
 
         if (!this::activity.isInitialized) {
             return events
