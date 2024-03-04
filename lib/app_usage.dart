@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'app_usage_platform_interface.dart';
 
 enum AppCategory {
@@ -56,7 +58,8 @@ class AppUsage {
       end,
       packageName,
     );
-    print("instance: ${AppUsagePlatform.instance}");
+    print("instance: ${AppUsagePlatform.instance.toString()}");
+    print("instance: ${AppUsagePlatform.instance.isNull}");
     print("res: $res");
 
     final List<AppUsageInfo> result = [];
