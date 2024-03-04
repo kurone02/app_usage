@@ -57,6 +57,8 @@ class AppUsage {
       packageName,
     );
 
+    print("res: $res");
+
     final List<AppUsageInfo> result = [];
 
     for (var event in res) {

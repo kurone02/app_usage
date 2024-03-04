@@ -18,6 +18,7 @@ class MethodChannelAppUsage extends AppUsagePlatform {
 
   @override
   Future<dynamic> getAppUsage(int start, int end, String? packageName) async {
+    print("test from getAppUsage of methd channel");
     Map<String, dynamic> interval = {
       'start': start,
       'end': end,
