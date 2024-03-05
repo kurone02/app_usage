@@ -24,8 +24,6 @@ class MethodChannelAppUsage extends AppUsagePlatform {
       'end': end,
       'packageName': packageName,
     };
-    // print("interval: $interval");
-    // print("method Channel: $methodChannel");
     return await methodChannel.invokeMethod<dynamic>("getAppUsage", interval);
   }
 }

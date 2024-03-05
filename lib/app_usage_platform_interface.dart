@@ -28,7 +28,6 @@ abstract class AppUsagePlatform extends PlatformInterface {
   }
 
   Future<dynamic> getAppUsage(int start, int end, String? packageName) async {
-    // print("TEST from getAppUsage");
     throw UnimplementedError("getAppUsage() has not been implemented.");
   }
 }
