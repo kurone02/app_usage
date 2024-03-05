@@ -39,7 +39,7 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         /// Verify that the correct method was called
         if (call.method == "getAppUsage") {
-            Log.d("kttest","getAppUsage Called!");
+            // Log.d("kttest","getAppUsage Called!");
             // Parse parameters, i.e. start- and end-date
             val startTime: Long? = call.argument("start")
             val endTime: Long? = call.argument("end")
@@ -60,12 +60,18 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         var usage : UsageEvents = usageStatsManager.queryEvents(startTime, endTime)
         var events: MutableList< Map<String, String> > = mutableListOf()
 
-        Log.d("kttest","usage in kt")
-        Log.d("kttest", usage.toString())
 
-        if (!this::activity.isInitialized) {
-            return events
-        }
+        // Log.d("kttest","usage in kt")
+        // Log.d("usage", usage.hasNextEvent().toString())
+        // Log.d("activity", this.toString())
+        // Log.d("activity", this::activity.toString())
+
+
+        // (Seongouk Kim) I omitted this part to ensure that this code works on backround too.
+        // Will modify it if this cause errors
+        // if (!this::activity.isInitialized) {
+        //     return events
+        // }
 
         if(!usage.hasNextEvent()) {
             val intent : Intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
