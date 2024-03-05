@@ -80,9 +80,6 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
         while(usage.hasNextEvent()) {
             var event : UsageEvents.Event = UsageEvents.Event()
-            
-            Log.d("Event", event.getPackageName.toString())
-
             usage.getNextEvent(event)
             if(packageName == null || packageName == event.getPackageName()) {
             val pm : PackageManager = context.getPackageManager()
