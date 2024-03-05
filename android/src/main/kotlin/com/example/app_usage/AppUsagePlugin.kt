@@ -61,7 +61,8 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         var events: MutableList< Map<String, String> > = mutableListOf()
 
         Log.d("kttest","usage in kt")
-        Log.d("kttest", usage.toString())
+        Log.d("USM",context.getSystemService(Context.USAGE_STATS_SERVICE).toString())
+        Log.d("usage", usageStatsManager.queryEvents(startTime, endTime).toString())
 
         if (!this::activity.isInitialized) {
             return events
@@ -74,6 +75,9 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
         while(usage.hasNextEvent()) {
             var event : UsageEvents.Event = UsageEvents.Event()
+            
+            Log.d("Event", event.getPackageName.toString())
+
             usage.getNextEvent(event)
             if(packageName == null || packageName == event.getPackageName()) {
             val pm : PackageManager = context.getPackageManager()
