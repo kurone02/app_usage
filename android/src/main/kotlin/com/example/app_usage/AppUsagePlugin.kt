@@ -47,6 +47,11 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             var res: MutableList< Map<String, String> > = getAppUsage(startTime!!, endTime!!, packageName)
             result.success(res)
         }
+
+        else if (call.method == "getAppUsagePermission") {
+            getAppUsagePermission()
+            result.success()
+        }
         /// If an incorrect method was called, throw an error
         else {
             result.notImplemented()
@@ -100,6 +105,7 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         return events
     }
 
+    // Call usage access setting screen
     fun getAppUsagePermission()
     {
         if (this::activity.isInitialized){
