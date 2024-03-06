@@ -73,10 +73,11 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         //     return events
         // }
 
-        if(!usage.hasNextEvent()) {
-            val intent : Intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
-            activity.startActivity(intent)
-        }
+        // (Seongouk Kim) This part and above part seems redundant since we'll run this code on background service.
+        // if(!usage.hasNextEvent()) {
+        //     val intent : Intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+        //     activity.startActivity(intent)
+        // }
 
         while(usage.hasNextEvent()) {
             var event : UsageEvents.Event = UsageEvents.Event()
