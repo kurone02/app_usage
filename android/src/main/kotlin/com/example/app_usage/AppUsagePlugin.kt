@@ -50,7 +50,6 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
 
         else if (call.method == "getAppUsagePermission") {
             getAppUsagePermission()
-            result.success()
         }
         /// If an incorrect method was called, throw an error
         else {
