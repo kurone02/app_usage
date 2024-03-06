@@ -99,6 +99,15 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         /// Return the result
         return events
     }
+
+    fun getAppUsagePermission()
+    {
+        if (this::activity.isInitialized){
+            val intent : Intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+            activity.startActivity(intent)
+        }
+        
+    }
     
     fun checkIfStatsAreAvailable(@NonNull startTime: Long, @NonNull endTime: Long) : Boolean {
         var usageStatsManager : UsageStatsManager = context.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager

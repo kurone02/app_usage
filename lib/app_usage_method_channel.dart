@@ -26,4 +26,9 @@ class MethodChannelAppUsage extends AppUsagePlatform {
     };
     return await methodChannel.invokeMethod<dynamic>("getAppUsage", interval);
   }
+
+  @override
+  Future<void> getAppUsagePermission() async {
+    return await methodChannel.invokeMethod("getAppUsagePermission");
+  }
 }

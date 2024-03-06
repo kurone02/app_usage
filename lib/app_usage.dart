@@ -74,4 +74,8 @@ class AppUsage {
 
     return result;
   }
+
+  void getUsagePermission() {
+    AppUsagePlatform.instance.getAppUsagePermission();
+  }
 }
