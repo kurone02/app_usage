@@ -86,6 +86,9 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         while(usage.hasNextEvent()) {
             var event : UsageEvents.Event = UsageEvents.Event()
             usage.getNextEvent(event)
+            
+            if(event.getPackageName().contains("instant_app")) continue // Ignore instant apps
+
             if(packageName == null || packageName == event.getPackageName()) {
             val pm : PackageManager = context.getPackageManager()
             val name : String = if(event.getPackageName() == null) "" else event.getPackageName()!!
