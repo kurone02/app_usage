@@ -18,6 +18,7 @@ import android.app.usage.UsageStatsManager
 import android.app.usage.UsageEvents
 import android.content.pm.PackageManager
 import android.content.pm.ApplicationInfo
+import android.app.AppOpsManager
 
 /** AppUsagePlugin */
 public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -106,15 +107,29 @@ public class AppUsagePlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         /// Return the result
         return events
     }
+    
 
     // Call usage access setting screen
     fun getAppUsagePermission()
     {
-        if (this::activity.isInitialized){
+        // check permission fisrt
+        val allowed = isUsageStatsPermissionGranted()
+        if (this::activity.isInitialized && !allowed){
             val intent : Intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
             activity.startActivity(intent)
         }
         
+    }
+
+    // Check whether GET_USAGE_STATS is granted
+    private fun isUsageStatsPermissionGranted(): Boolean {
+        val appOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        val mode = appOpsManager.checkOpNoThrow(
+            AppOpsManager.OPSTR_GET_USAGE_STATS,
+            android.os.Process.myUid(),
+            "com.mentalhealth.mthapp"
+        )
+        return mode == AppOpsManager.MODE_ALLOWED
     }
     
     fun checkIfStatsAreAvailable(@NonNull startTime: Long, @NonNull endTime: Long) : Boolean {
